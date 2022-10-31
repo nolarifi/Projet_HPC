@@ -1,10 +1,12 @@
 #!/bin/bash
+### This script permit to verify the quality of sequences before any treatment ###
+
 #SBATCH --time=0:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem-per-cpu=2G
-#SBATCH --cpus-per-task=1   # Nb of threads we want to run on
-#SBATCH -o atacseq/log/slurmjob-%A-%a
+#SBATCH --cpus-per-task=2
+#SBATCH -o Project_HPC/log/slurmjob-%A-%a
 #SBATCH --job-name=qc_atac
 #SBATCH --partition=short
 #SBATCH --array=0-11
@@ -17,6 +19,8 @@ __license__='GPL3'
 __maintainer__='Nadia Goué'
 __status__='Development'
 __version__='0.0.1'
+__developer__='Nour Larifi'
+__email__='nour.larifi@etu.uca.fr'
 
 echo 'Quality control'
 
@@ -36,7 +40,7 @@ echo "Set up directories ..." >&2
 # Set up data and result directories
 # Run QC on raw data and an trimmed data
 
-DATA_DIR="$HOME"/atacseq/data/raw/
+DATA_DIR=/home/users/shared/data/atacseq/data/subset
 
 echo "Set up an array with all fastq.gz sequence files..." >&2
 tab=($(ls "$DATA_DIR"/*.fastq.gz))
@@ -48,7 +52,7 @@ shortname=($(basename "${tab[$SLURM_ARRAY_TASK_ID]}" .fastq.gz ))
 
 SCRATCHDIR=/storage/scratch/"$USER"/"$shortname"/fastqc-init
 
-OUTPUT="$HOME"/atacseq/results/qc/"$shortname"
+OUTPUT="$HOME"/Project_HPC/results/qc/"$shortname"
 mkdir -p "$OUTPUT"
 # Look for empty result directory
 if [ -d "$OUTPUT/fastqc-init" ]
