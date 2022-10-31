@@ -1,10 +1,11 @@
 #!/bin/bash
+## This script permit to align our sequences to the reference genome Mus_musculus_GRCm39 ###
 ##SBATCH --time=5:00:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=30G
 #SBATCH --cpus-per-task=8   # Nb of threads we want to run on
-#SBATCH -o atacseq/log/slurmjob-%A-%a
+#SBATCH -o Project_HPC/log/slurmjob-%A-%a
 #SBATCH --job-name=bowtie2_atac
 #SBATCH --partition=short
 #SBATCH --array=0-5
@@ -17,6 +18,9 @@ __license__='GPL3'
 __maintainer__='Nadia Goué'
 __status__='Development'
 __version__='0.0.1'
+__developer__='Nour Larifi'
+__email__='nour.larifi@etu.uca.fr'
+
 
 echo 'Alignment with bowtie2'
 
@@ -42,18 +46,18 @@ SCRATCHDIR=/storage/scratch/"$USER"/"$SLURM_JOB_ID"
 DATABANK="/home/users/shared/databanks/Mus_musculus_GRCm39/bowtie2"
 echo "index = $DATABANK"
 
-OUTPUT="$HOME"/atacseq/results/bowtie2
+OUTPUT="$HOME"/Project_HPC/results/bowtie2
 mkdir -p "$OUTPUT"
 mkdir -p -m 700 "$SCRATCHDIR"
 cd "$SCRATCHDIR"
 
 echo "Set up 2 arrays with trimmed forward and reverse fastq.gz sequence files..." >&2
 
-tab_fwd=($(find "$HOME"/atacseq/results/trim -type f -name "*1_trim_paired.fastq.gz" -printf "%f %p \n" | sort -k1 | cut -d " " -f 2))
+tab_fwd=($(find "$HOME"/Project_HPC/results/trim -type f -name "*1_trim_paired.fastq.gz" -printf "%f %p \n" | sort -k1 | cut -d " " -f 2))
 echo "tab_fwd = " >&2
 printf '%s\n' "${tab_fwd[@]}" >&2
 
-tab_rev=($(find "$HOME"/atacseq/results/trim -type f -name "*2_trim_paired.fastq.gz" -printf "%f %p \n" | sort -k1 | cut -d " " -f 2))
+tab_rev=($(find "$HOME"/Project_HPC/results/trim -type f -name "*2_trim_paired.fastq.gz" -printf "%f %p \n" | sort -k1 | cut -d " " -f 2))
 echo "tab_rev = " >&2
 printf '%s\n' "${tab_rev[@]}" >&2
 
