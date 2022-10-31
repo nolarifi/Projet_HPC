@@ -5,7 +5,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem-per-cpu=2G
-#SBATCH --cpus-per-task=2
+#SBATCH --cpus-per-task=1
 #SBATCH -o Project_HPC/log/slurmjob-%A-%a
 #SBATCH --job-name=qc_atac
 #SBATCH --partition=short
