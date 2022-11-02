@@ -1,5 +1,5 @@
 ## Extract pre-developed scripts
--A set of scripts are copied from /home/users/teacher/atacseq/scripts/*.slurm  into home/users/studentXX/atacseq/scripts.
+-A set of scripts are copied from /home/users/teacher/atacseq/scripts/*.slurm  into home/users/studentXX/Project_HPC/scripts.
 These scripts will be modified later in order to be adapted to our dataset.
 -Subset of 4000 lines equivalent to 1000 sequences created from the original subset in order to be pushed into the git repository 
   using this command line : 
