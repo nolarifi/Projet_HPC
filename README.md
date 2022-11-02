@@ -14,7 +14,11 @@ These scripts will be modified later in order to be adapted to our dataset.
              it’s launched from home using this command line : sbatch Project_HPC/scripts/atac_trim.slurm
   	  -atac_qc_post.slurm: this script permit to evaluate the quality of sequences after pre-processing. 
              it’s launched from home using this command line : sbatch Project_HPC/scripts/atac_qc_post.slurm
-## II. alignment to reference genome        
-         atac_bowtie2.slurm: this script permit to align sequences to the reference genome.
+## II. alignment
+      # 1.Alignment to reference genome        
+        - atac_bowtie2.slurm: this script permit to align sequences to the reference genome.
             it’s launched from home using this command line : sbatch Project_HPC/scripts/atac_bowtie2.slurm
- 
+      # 2. Eliminate duplicates
+         -atac_picard.slurm : this script permit to eliminate duplicates . 
+            it's launched from home using this command line : sbatch Project_HPC/scripts/atac_picard.slurm
+
