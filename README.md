@@ -3,7 +3,7 @@
 These scripts will be modified later in order to be adapted to our dataset.
 -Subset of 4000 lines equivalent to 1000 sequences created from the original subset in order to be pushed into the git repository 
   using this command line : 
- parallel 'zcat {} | head -n 4000 | gzip > /home/users/student08/atacseq/data/test.{/.}.gz' ::: /home/users/shared/data/atacseq/data/subset/ss_50k*
+ parallel 'zcat {} | head -n 4000 | gzip > /home/users/student05/Project_HPC/data/test.{/.}.gz' ::: /home/users/shared/data/atacseq/data/subset/ss_50k*
    
  ## Workflow:
 ## I. data preprocessing :
