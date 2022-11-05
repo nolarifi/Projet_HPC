@@ -1,6 +1,6 @@
 #!/bin/bash
 
- 
+#### this script permit the identification of DNA accessibility sites ########### 
 #SBATCH --time=0:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
