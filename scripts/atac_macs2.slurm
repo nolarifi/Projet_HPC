@@ -1,13 +1,13 @@
 #!/bin/bash
 
-#### this script permit the identification of DNA accessibility sites ########### 
+##### this script permit the identification of DNA accessibility sites ########### 
 #SBATCH --time=0:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=26G
 #SBATCH --cpus-per-task=6   # Nb of threads we want to run on ${SLURM_CPUS_ON_NODE}
 #SBATCH -o atacseq/log/slurmjob-%A-%a
-#SBATCH --job-name=picard_atac
+#SBATCH --job-name=macs2_atac
 #SBATCH --partition=short
 #SBATCH --array=0-5
 
