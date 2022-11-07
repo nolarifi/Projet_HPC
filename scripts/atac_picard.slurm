@@ -1,4 +1,6 @@
 #!/bin/bash
+
+########## RGis script permit to eliminate duplicates #####
 #SBATCH --time=0:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
