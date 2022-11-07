@@ -64,10 +64,9 @@ echo "shortname = $SHORTNAME" >&2
 echo "bamCoverage in order to see the coverage on the genome from each sample"
 # Args -b <file> : Path to the input BAM file
 # Args -o <file> : Path to where the output files should be writen
-# Args --outFileFormat <character> : Choose whether the output will be in Bigwig (=> IGV) or in bedgraph format
+# Args --outFileFormat <character> : Choose whether the output will be in Bigwig or in bedgraph format
 
-bamCoverage -b "${tab[$SLURM_ARRAY_TASK_ID]}" -o "$SHORTNAME".bw --outFileFormat bigwig
-
+bamCoverage -b "${tab[$SLURM_ARRAY_TASK_ID]}" -o "$SHORTNAME".bed --outFileFormat bedgraph
 
 
 
