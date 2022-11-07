@@ -10,7 +10,7 @@
 #SBATCH --mem=26G
 #SBATCH --cpus-per-task=6   # Nb of threads we want to run on ${SLURM_CPUS_ON_NODE}
 #SBATCH -o atacseq/log/slurmjob-%A-%a
-#SBATCH --job-name=picard_atac
+#SBATCH --job-name=deepTools_atac
 #SBATCH --partition=short
 #SBATCH --array=0-5
 
