@@ -51,6 +51,7 @@ cd "$SCRATCHDIR"
 #Set up data directory                  
 DATA_DIR=/home/users/shared/data/atacseq/data/subset 
 ADAP_DIR=/home/users/shared/data/atacseq/data/
+
 #Run the program
 echo "Start on $SLURMD_NODENAME: "`date` >&2                            # specify which node wil be used 
 
