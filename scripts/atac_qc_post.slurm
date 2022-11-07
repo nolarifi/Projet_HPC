@@ -8,7 +8,7 @@
 #SBATCH --mem-per-cpu=2G
 #SBATCH --cpus-per-task=1   # Nb of threads we want to run on
 #SBATCH -o Project_HPC/log/slurmjob-%A-%a
-#SBATCH --job-name=qc_atac
+#SBATCH --job-name=qc_post_atac
 #SBATCH --partition=short
 #SBATCH --array=0-23
 
