@@ -80,9 +80,10 @@ These scripts will be modified later in order to be adapted to our dataset.
              #2.1 Genome coverage : using banCoverage function to genetae bigwig or bed file. this file is used on IGV                  
              #2.2 Fragments length: using bamPEFragmentSize function to calculate fragments length
               input :"$HOME/Project_HPC/results/picard"
-              output: "$HOME/Project_HPC/results/picard" : bed file to see genome coverage
-                                                        hist_fragments_length.png : displaying  fragment length using an histogram
-                                                        table_fragment_length.tsv : displaying  fragment length using a table
+              output: "$HOME/Project_HPC/results/deeptools" : bed file to see genome coverage using bamCoverage 
+                                                                a function that offers normalization by scaling factor
+                                                        -hist_fragments_length.png : displaying  fragment length using an histogram
+                                                        -table_fragment_length.tsv : displaying  fragment length using a table
              this script is launched from home using this command line : sbatch Project_HPC/scripts/atac_deeptools.slurm
            
 
