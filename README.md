@@ -1,4 +1,6 @@
-## Objective of the Project dddd
+
+## Objective of the Project 
+
 
 One of the main objectives of this project was to identify DNA accessible regions during transcription.
 
