@@ -71,7 +71,7 @@ echo "Identification of common DNA access sites" >&2
 
 bedtools intersect -wa -a "${tab_0h[$SLURM_ARRAY_TASK_ID]}" -b "${tab_24h[$SLURM_ARRAY_TASK_ID]}" > "$SHORTNAME"_common.bed
 
-echo "Identification of unique DNA access sites " >&2
+echo "Identification of unique DNA accessible sites " >&2
 
 bedtools intersect -wa -v -a "${tab_0h[$SLURM_ARRAY_TASK_ID]}" -b "${tab_24h[$SLURM_ARRAY_TASK_ID]}" > "$SHORTNAME"_unique.bed
 
