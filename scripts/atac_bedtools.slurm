@@ -6,7 +6,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=30G
-#SBATCH --cpus-per-task=6   # Nb of threads we want to run on
+#SBATCH --cpus-per-task=1   # Nb of threads we want to run on
 #SBATCH -o Project_HPC/log/slurmjob-%A-%a
 #SBATCH --job-name=bedtools_atac
 #SBATCH --partition=short

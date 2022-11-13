@@ -1,7 +1,7 @@
 #!/bin/bash
 
 
-### This script permit to generate bigwig file in order to visualize genome coverage using IGV  and to calculate fragments length ######## 
+### This script permit to generate bed file in order to visualize genome coverage using IGV  and to calculate fragments length ######## 
 #SBATCH --time=0:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
@@ -75,8 +75,8 @@ echo "bamPEFragmentSize to compare the reads length according to the samples"
 # Args -o <file> : Path to where the output should be writen
 # Args --samplesLabels <character> : Rename the samples by these labels
 
-bamPEFragmentSize -b "${tab[@]}" --samplesLabel 0h_R1 0h_R2 0h_R3 24h_R1 24h_R2 24h_R3 --table "$OUTPUT"/table_fragment_length.tsv \
- -o "$OUTPUT"/hist_fragments_length.png
+bamPEFragmentSize -b "${tab[@]}" --samplesLabel 0h_R1 0h_R2 0h_R3 24h_R1 24h_R2 24h_R3 \
+          --table "$OUTPUT"/table_fragment_length.tsv -o "$OUTPUT"/hist_fragments_length.png
 
 
 #Move results from scratch to user one's directory

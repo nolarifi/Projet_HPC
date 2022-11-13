@@ -6,7 +6,7 @@
 #SBATCH --ntasks=1
 #SBATCH --mem=26G
 #SBATCH --cpus-per-task=6   # Nb of threads we want to run on ${SLURM_CPUS_ON_NODE}
-#SBATCH -o atacseq/log/slurmjob-%A-%a
+#SBATCH -o Project_HPC/log/slurmjob-%A-%a
 #SBATCH --job-name=macs2_atac
 #SBATCH --partition=short
 #SBATCH --array=0-5
@@ -67,10 +67,15 @@ echo "Start job: "`date` >&2
 # Run the program
 # Args -t <filename>   : Input bam files
 # Args  -f             : Format of output file
-# Args   -n             : The prefix string for output files 
+# Args   -n            : The prefix string for output files 
+# Args   -g            : select the genome
+# Args  -gsize         : specify the genome size of mus mmusculus
+# Args  --min-length   : width of peaks that will form the basic building blocks for extending peaks into regions
+#                         equivilent to -size in homer (maybe)
 # Args -outdir         : MACS2 will save all output files into speficied folder for this option 
+#peaks =  regions of the genome where multiple reads align that are indicative of protein binding
 
-macs2 callpeak -t ${tab[$SLURM_ARRAY_TASK_ID]} -f BAM -n "$SHORTNAME" --outdir "$SCRATCHDIR"
+macs2 callpeak -t ${tab[$SLURM_ARRAY_TASK_ID]} -f BAM -g mm -n "$SHORTNAME" --outdir "$SCRATCHDIR"
 
 
 
