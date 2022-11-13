@@ -88,7 +88,8 @@ These scripts will be modified later in order to be adapted to our dataset.
            
 
 ## V. Identification of DNA accessible sites
-        -atac_macs2.slurm : this script permit to identify DNA accessible sites using macs2
+        -atac_macs2.slurm : this script permit to identify DNA accessible sites using macs2 by using callpeak function
+              -peaks =  regions of the genome where multiple reads align that are indicative of protein binding
               input: $HOME/Project_HPC/results/picard
               output: "$HOME"/Project_HPC/results/MACS2 : bed file is generated containing the position of peaks that will
                                                            represent the accessible regions
