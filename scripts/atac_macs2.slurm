@@ -5,7 +5,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=26G
-#SBATCH --cpus-per-task=6   # Nb of threads we want to run on ${SLURM_CPUS_ON_NODE}
+#SBATCH --cpus-per-task=1   # Nb of threads we want to run on ${SLURM_CPUS_ON_NODE}
 #SBATCH -o Project_HPC/log/slurmjob-%A-%a
 #SBATCH --job-name=macs2_atac
 #SBATCH --partition=short
