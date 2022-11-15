@@ -10,7 +10,7 @@
 #SBATCH -o Project_HPC/log/slurmjob-%A-%a
 #SBATCH --job-name=bedtools_atac
 #SBATCH --partition=short
-#SBATCH --array=0-2
+#SBATCH --array=0
 
 # Program configuration
 __author__='Nadia Goué'
@@ -49,11 +49,11 @@ cd "$SCRATCHDIR"
 
 echo "Set up two arrays with results of 0h for one and 24h for the other from MACS2" >&2
 
-tab_0h=($(find "$HOME"/Project_HPC/results/MACS2 -type f -name "ss_50k_0h_*.bed" -printf "%f %p \n" | sort -k1 | cut -d " " -f 2))
+tab_0h=($(find "$HOME"/Project_HPC/results/MACS2 -type f -name "ss_50k_0h_*.narrowPeak" -printf "%f %p \n" | sort -k1 | cut -d " " -f 2))
 echo "tab_0h = " >&2
 printf '%s\n' "${tab_0h[@]}" >&2
 
-tab_24h=($(find "$HOME"/Project_HPC/results/MACS2 -type f -name "ss_50k_24h_*.bed" -printf "%f %p \n" | sort -k1 | cut -d " " -f 2))
+tab_24h=($(find "$HOME"/Project_HPC/results/MACS2 -type f -name "ss_50k_24h_*.narrowPeak" -printf "%f %p \n" | sort -k1 | cut -d " " -f 2))
 echo "tab_24h = " >&2
 printf '%s\n' "${tab_24h[@]}" >&2
 
@@ -69,11 +69,39 @@ echo "Identification of common DNA access sites" >&2
 # Args -wa : For each overlap, write the original entry of -a
 # Args -v : Returns entries in -a that have no overlap in -b
 
-bedtools intersect -wa -a "${tab_0h[$SLURM_ARRAY_TASK_ID]}" -b "${tab_24h[$SLURM_ARRAY_TASK_ID]}" > "$SHORTNAME"_common.bed
 
-echo "Identification of unique DNA accessible sites " >&2
+echo "Concatenate all narrowPrak files for each condition "
 
-bedtools intersect -wa -v -a "${tab_0h[$SLURM_ARRAY_TASK_ID]}" -b "${tab_24h[$SLURM_ARRAY_TASK_ID]}" > "$SHORTNAME"_unique.bed
+cat "${tab_0h[@]}"  > "$SCRATCHDIR"/ss_50k_0h_trim_mapped_sorted_q2_nodup_combined_peaks.narrowPeak
+cat "${tab_24h[@]}"  > "$SCRATCHDIR"/ss_50k_24h_trim_mapped_sorted_q2_nodup_combined_peaks.narrowPeak 
+
+zero_hour="$SCRATCHDIR"/ss_50k_0h_trim_mapped_sorted_q2_nodup_combined_peaks.narrowPeak
+twenty_four_hour="$SCRATCHDIR"/ss_50k_24h_trim_mapped_sorted_q2_nodup_combined_peaks.narrowPeak
+
+echo "Sort peaks based on coordinates and merge them"
+#Args -i   : path to the input files
+
+sort -k1,1 -k2,2n "$zero_hour" | bedtools merge -i - > "$SCRATCHDIR"/ss_50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed
+sort -k1,1 -k2,2n "$twenty_four_hour" | bedtools merge -i - > "$SCRATCHDIR"/ss_50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed
+
+echo "Find commun regions between 0h and 24h"
+
+bedtools intersect -a ss_50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
+             -b ss_50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
+                > "$SCRATCHDIR"/ss_50k_trim_mapped_sorted_q2_nodup_common.bed 
+
+echo "Looking for differences in enrichment between 0h and 24h"
+echo "unique regions for 0h"
+bedtools intersect -a ss_50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
+                -b ss_50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed -v \
+                       > "$SCRATCHDIR"/ss_50k_trim_mapped_sorted_q2_nodup_0h_unique.bed
+
+echo "unique regions for 24h"
+bedtools intersect -a ss_50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
+       	       	-b ss_50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed -v \
+       	       	       > "$SCRATCHDIR"/ss_50k_trim_mapped_sorted_q2_nodup_24h_unique.bed
+
+
 
 #Move results from scratch to user one's directory
 mv  "$SCRATCHDIR" "$OUTPUT"
