@@ -68,8 +68,7 @@ echo "Start job: "`date` >&2
 # Args -t <filename>   : Input bam files
 # Args  -f             : Format of output file
 # Args   -n            : The prefix string for output files 
-# Args   -g            : select the genome
-# Args  -gsize         : specify the genome size of mus mmusculus
+# Args  -g             : specify the genome size of mus musculus
 # Args  --min-length   : width of peaks that will form the basic building blocks for extending peaks into regions
 #                         equivilent to -size in homer (maybe)
 # Args -outdir         : MACS2 will save all output files into speficied folder for this option 
