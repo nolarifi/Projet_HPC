@@ -64,11 +64,6 @@ echo "shortname = $SHORTNAME" >&2
 # Run the program
 echo "Start on $SLURMD_NODENAME: "`date` >&2
 
-echo "Identification of common DNA access sites" >&2
-# Args -a and -b : Path to the input BAM files to analyze
-# Args -wa : For each overlap, write the original entry of -a
-# Args -v : Returns entries in -a that have no overlap in -b
-
 
 echo "Concatenate all narrowPrak files for each condition "
 
@@ -84,7 +79,7 @@ echo "Sort peaks based on coordinates and merge them"
 sort -k1,1 -k2,2n "$zero_hour" | bedtools merge -i - > "$SCRATCHDIR"/ss_50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed
 sort -k1,1 -k2,2n "$twenty_four_hour" | bedtools merge -i - > "$SCRATCHDIR"/ss_50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed
 
-echo "Find commun regions between 0h and 24h"
+echo "Identification of common DNA access sites between 0h and 24h"
 # Args -a and -b : Path to the input BAM files to analyze
 # Args -v : Returns entries in -a that have no overlap in -b 
 
@@ -93,12 +88,13 @@ bedtools intersect -a ss_50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
                 > "$SCRATCHDIR"/ss_50k_trim_mapped_sorted_q2_nodup_common.bed 
 
 echo "Looking for differences in enrichment between 0h and 24h"
-echo "unique regions for 0h"
+
+echo "Identification of unique DNA access sites at 0h"
 bedtools intersect -a ss_50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
                 -b ss_50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed -v \
                        > "$SCRATCHDIR"/ss_50k_trim_mapped_sorted_q2_nodup_0h_unique.bed
 
-echo "unique regions for 24h"
+echo "Identification of unique DNA access sites at 24h"
 bedtools intersect -a ss_50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
        	       	-b ss_50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed -v \
        	       	       > "$SCRATCHDIR"/ss_50k_trim_mapped_sorted_q2_nodup_24h_unique.bed
