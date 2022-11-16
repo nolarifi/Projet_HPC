@@ -61,7 +61,7 @@ These scripts will be modified later in order to be adapted to our dataset.
             it's launched from home using this command line : sbatch Project_HPC/scripts/atac_picard.slurm
 
 ## III. Duplicates elimination
-       -atac_picard.slurm:this script permit to eliminate duplicates by using the picard tool.
+       -atac_picard.slurm:this script permit to eliminate duplicates by using the picard tool and visualization using IGV
            input: alignment file : $HOME/Project_HPC/results/bowtie2
            Output                : $HOME/Project_HPC/results/picards
           it’s launched from home using this command line : sbatch Project_HPC/scripts/atac_picard.slurm
@@ -76,8 +76,8 @@ These scripts will be modified later in order to be adapted to our dataset.
            it’s launched from home using this command line : sbatch Project_HPC/scripts/atac_deeptools-array.slurm
        
        #2.Visualization of genome coverage using IGV  and to calculate fragments length   
-        -atac_deeptools.slurm : this script permit to to generate bigwig file in order to visualize genome coverage using IGV  and to calculate fragments length
-             #2.1 Genome coverage : using banCoverage function to genetae bigwig or bed file. this file is used on IGV                  
+        -atac_deeptools.slurm : this script permit to to generate bed file in order to visualize genome coverage using UCSC  and to calculate fragments length
+             #2.1 Genome coverage : using banCoverage function to genetae bigwig or bed file. this file is used on UCSC                  
              #2.2 Fragments length: using bamPEFragmentSize function to calculate fragments length
               input :"$HOME/Project_HPC/results/picard"
               output: "$HOME/Project_HPC/results/deeptools" : bed file to see genome coverage using bamCoverage 
