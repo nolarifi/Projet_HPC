@@ -85,6 +85,8 @@ sort -k1,1 -k2,2n "$zero_hour" | bedtools merge -i - > "$SCRATCHDIR"/ss_50k_0h_t
 sort -k1,1 -k2,2n "$twenty_four_hour" | bedtools merge -i - > "$SCRATCHDIR"/ss_50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed
 
 echo "Find commun regions between 0h and 24h"
+# Args -a and -b : Path to the input BAM files to analyze
+# Args -v : Returns entries in -a that have no overlap in -b 
 
 bedtools intersect -a ss_50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
              -b ss_50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
