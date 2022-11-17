@@ -1,11 +1,11 @@
 #! /bin/bash
 #cd "$(dirname "$0")"
 
-echo 'GOUE Nadia (Universite Clermont Auvergne, Mesocentre)'
-echo 'Date: Fall Master course 2021 '
+echo 'Nour Larifi (Universite Clermont Auvergne, Mesocentre)'
+echo 'Date: Fall Master course 2022 '
 echo 'Object: Sample case of ATACseq workflow showing job execution and dependency handling.'
-echo 'Inputs: paths to scripts qc, trim and bwa'
-echo 'Outputs: trimmed fastq files, QC HTML files and BAM files'
+echo 'Inputs: paths to scripts qc, trim ,bwa , picard , deeptools , macs2 ,bedtools'
+echo 'Outputs: trimmed fastq files, QC HTML files and , BAM files , BED files'
 
 # Handling errors
 #set -x # debug mode on
