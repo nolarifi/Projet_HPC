@@ -77,9 +77,8 @@ echo "plotCorrelation in order to see the correlation between samples" >&2
 # Args -in <file>               : Path to the npz file
 # Args --coreMehod <character>  : Select  between two different functions for the correlation computation: Pearson or Spearman.
 # Args --removeOutliers         : Will remove outliers from the samples
-# Args --whatToPLot <character> : Choose the format of the graph ( heatmap or scatterplot )
 # Args -o <file>                : Path to the output file
-# Args --outFileCorMatrix       : Save the distance between samples in a tab format
+
 
 # Pearson correlation take into consideration correlation between samples
 
