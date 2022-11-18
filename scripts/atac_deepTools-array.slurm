@@ -8,7 +8,7 @@
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=26G
-#SBATCH --cpus-per-task=7   # Nb of threads we want to run on ${SLURM_CPUS_ON_NODE}
+#SBATCH --cpus-per-task=6   # Nb of threads we want to run on ${SLURM_CPUS_ON_NODE}
 #SBATCH -o Project_HPC/log/slurmjob-%A-%a
 #SBATCH --job-name=deepTools_atac
 #SBATCH --partition=short
@@ -84,23 +84,20 @@ echo "plotCorrelation in order to see the correlation between samples" >&2
 # Pearson correlation take into consideration correlation between samples
 
 plotCorrelation -in "$comb_FILE" \
-    --corMethod spearman --skipZeros \
-    --plotTitle "Spearman Correlation " \
+    --corMethod spearman \
     --removeOutliers \
-    --whatToPlot heatmap --colorMap RdYlBu --plotNumbers \
-    -o "$OUTPUT"/heatmap_SpearmanCorr.png   \
-    --outFileCorMatrix "$OUTPUT"/SpearmanCorr.tab   
+    --whatToPlot heatmap --plotNumbers \
+    -o "$OUTPUT"/heatmap_SpearmanCorr.png    
 
 
 # pearson correlation doesn't take into consideration correlation between samples
 
 plotCorrelation -in "$comb_FILE" \
-    --corMethod pearson --skipZeros \
-    --plotTitle "Pearson Correlation " \
+    --corMethod pearson \
     --removeOutliers \
-    --whatToPlot heatmap --colorMap RdYlBu --plotNumbers \
-    -o "$OUTPUT"/heatmap_PearsonCorr.png   \
-    --outFileCorMatrix "$OUTPUT"/PearsonCorr.tab
+    --whatToPlot heatmap --plotNumbers \
+    -o "$OUTPUT"/heatmap_PearsonCorr.png   
+
 
 # Move results in one's directory
 mv  "$SCRATCHDIR" "$OUTPUT"
