@@ -91,9 +91,19 @@ These scripts will be modified later in order to be adapted to our dataset.
         -atac_macs2.slurm : this script permit to identify DNA accessible sites using macs2 by using callpeak function
               -peaks =  regions of the genome where multiple reads align that are indicative of protein binding
               input: $HOME/Project_HPC/results/picard
-              output: "$HOME"/Project_HPC/results/MACS2 : bed file is generated containing the position of peaks that will
-                                                           represent the accessible regions
+              output: "$HOME"/Project_HPC/results/MACS2 : 
+                         _peaks.narrowPeak: BED6+4 format file which contains the peak locations together with peak summit, pvalue and qvalue
+                         _peaks.xls: a tabular file which contains information about called peaks. Additional information includes pileup and fold enrichment
+                         _summits.bed: peak summits locations for every peak. To find the motifs at the binding sites, this file is recommended
+                         _model.R: an R script which you can use to produce a PDF image about the model based on your data and cross-correlation plot
+                            the R script could be executed but first , R should be installed using this command line R/3.5.1 and then the script could be launched by taping in the terminal : Rscript _model.R 
+                            this will generate pdf file containig 2 plots. you can send it either to your local machine or uploaded on git to visualize it
+                            -to better explore .xls and .narrowPeak files. you can use this website : https://research.stowers.org/cws/CompGenomics/Projects/macs.html 
+
               this script is launched from home using this command line : sbatch Project_HPC/scripts/atac_macs2.slurm
+
+
+
 ## VI. Identification of common and unique DNA accessible sites    
      -atac_bedtools.slum : once DNA accessible sites are determined at t=0h and t=24h for the different replicates .
                            -Common accessible regions are determied using intersect function of bedtools
