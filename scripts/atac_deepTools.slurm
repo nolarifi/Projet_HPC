@@ -2,12 +2,12 @@
 
 
 ### This script permit to generate bed file in order to visualize genome coverage using IGV  and to calculate fragments length ######## 
-#SBATCH --time=0:30:00
+#SBATCH --time=0:45:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=26G
 #SBATCH --cpus-per-task=6   # Nb of threads we want to run on ${SLURM_CPUS_ON_NODE}
-#SBATCH -o atacseq/log/slurmjob-%A-%a
+#SBATCH -o Project_HPC/log/slurmjob-%A-%a
 #SBATCH --job-name=deepTools_atac
 #SBATCH --partition=short
 #SBATCH --array=0-5
