@@ -4,7 +4,7 @@
 ########### This script permit to merge bam file in one file using multiBamSummary function in order to automatically clusterize samples 
 #####                           based on the correlation coefficients 
 
-#SBATCH --time=0:30:00
+#SBATCH --time=1:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=26G
