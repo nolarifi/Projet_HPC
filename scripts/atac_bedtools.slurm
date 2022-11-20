@@ -49,11 +49,11 @@ cd "$SCRATCHDIR"
 
 echo "Set up two arrays with results of 0h for one and 24h for the other from MACS2" >&2
 
-tab_0h=($(find "$HOME"/Project_HPC/results/MACS2 -type f -name "ss_50k_0h_*.narrowPeak" -printf "%f %p \n" | sort -k1 | cut -d " " -f 2))
+tab_0h=($(find "$HOME"/Project_HPC/results/MACS2 -type f -name "50k_0h_*.narrowPeak" -printf "%f %p \n" | sort -k1 | cut -d " " -f 2))
 echo "tab_0h = " >&2
 printf '%s\n' "${tab_0h[@]}" >&2
 
-tab_24h=($(find "$HOME"/Project_HPC/results/MACS2 -type f -name "ss_50k_24h_*.narrowPeak" -printf "%f %p \n" | sort -k1 | cut -d " " -f 2))
+tab_24h=($(find "$HOME"/Project_HPC/results/MACS2 -type f -name "50k_24h_*.narrowPeak" -printf "%f %p \n" | sort -k1 | cut -d " " -f 2))
 echo "tab_24h = " >&2
 printf '%s\n' "${tab_24h[@]}" >&2
 
@@ -67,37 +67,37 @@ echo "Start on $SLURMD_NODENAME: "`date` >&2
 
 echo "Concatenate all narrowPrak files for each condition "
 
-cat "${tab_0h[@]}"  > "$SCRATCHDIR"/ss_50k_0h_trim_mapped_sorted_q2_nodup_combined_peaks.narrowPeak
-cat "${tab_24h[@]}"  > "$SCRATCHDIR"/ss_50k_24h_trim_mapped_sorted_q2_nodup_combined_peaks.narrowPeak 
+cat "${tab_0h[@]}"  > "$SCRATCHDIR"/50k_0h_trim_mapped_sorted_q2_nodup_combined_peaks.narrowPeak
+cat "${tab_24h[@]}"  > "$SCRATCHDIR"/50k_24h_trim_mapped_sorted_q2_nodup_combined_peaks.narrowPeak 
 
-zero_hour="$SCRATCHDIR"/ss_50k_0h_trim_mapped_sorted_q2_nodup_combined_peaks.narrowPeak
-twenty_four_hour="$SCRATCHDIR"/ss_50k_24h_trim_mapped_sorted_q2_nodup_combined_peaks.narrowPeak
+zero_hour="$SCRATCHDIR"/50k_0h_trim_mapped_sorted_q2_nodup_combined_peaks.narrowPeak
+twenty_four_hour="$SCRATCHDIR"/50k_24h_trim_mapped_sorted_q2_nodup_combined_peaks.narrowPeak
 
 echo "Sort peaks based on coordinates and merge them"
 #Args -i   : path to the input files
 
-sort -k1,1 -k2,2n "$zero_hour" | bedtools merge -i - > "$SCRATCHDIR"/ss_50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed
-sort -k1,1 -k2,2n "$twenty_four_hour" | bedtools merge -i - > "$SCRATCHDIR"/ss_50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed
+sort -k1,1 -k2,2n "$zero_hour" | bedtools merge -i - > "$SCRATCHDIR"/50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed
+sort -k1,1 -k2,2n "$twenty_four_hour" | bedtools merge -i - > "$SCRATCHDIR"/50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed
 
 echo "Identification of common DNA access sites between 0h and 24h"
 # Args -a and -b : Path to the input BAM files to analyze
 # Args -v : Returns entries in -a that have no overlap in -b 
 
-bedtools intersect -a ss_50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
-             -b ss_50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
-                > "$SCRATCHDIR"/ss_50k_trim_mapped_sorted_q2_nodup_common.bed 
+bedtools intersect -a 50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
+             -b 50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
+                > "$SCRATCHDIR"/50k_trim_mapped_sorted_q2_nodup_common.bed 
 
 echo "Looking for differences in enrichment between 0h and 24h"
 
 echo "Identification of unique DNA access sites at 0h"
-bedtools intersect -a ss_50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
-                -b ss_50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed -v \
-                       > "$SCRATCHDIR"/ss_50k_trim_mapped_sorted_q2_nodup_0h_unique.bed
+bedtools intersect -v -a 50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
+                -b 50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed  \
+                       > "$SCRATCHDIR"/50k_trim_mapped_sorted_q2_nodup_0h_unique.bed
 
 echo "Identification of unique DNA access sites at 24h"
-bedtools intersect -a ss_50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
-       	       	-b ss_50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed -v \
-       	       	       > "$SCRATCHDIR"/ss_50k_trim_mapped_sorted_q2_nodup_24h_unique.bed
+bedtools intersect -v -a 50k_24h_trim_mapped_sorted_q2_nodup_merged_peaks.bed \
+       	       	-b 50k_0h_trim_mapped_sorted_q2_nodup_merged_peaks.bed  \
+       	       	       > "$SCRATCHDIR"/50k_trim_mapped_sorted_q2_nodup_24h_unique.bed
 
 
 
