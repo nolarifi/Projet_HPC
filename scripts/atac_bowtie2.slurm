@@ -2,7 +2,7 @@
 
 
 ###### This script permit to align our sequences to the reference genome Mus_musculus_GRCm39 ###
-##SBATCH --time=5:00:00
+##SBATCH --time=1:30:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=30G
