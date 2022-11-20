@@ -1,7 +1,7 @@
 #!/bin/bash
 
 ##### this script permit the identification of DNA accessibility sites ########### 
-#SBATCH --time=0:30:00
+#SBATCH --time=0:50:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
 #SBATCH --mem=26G
@@ -72,6 +72,7 @@ echo "Start job: "`date` >&2
 # Args  --min-length   : width of peaks that will form the basic building blocks for extending peaks into regions
 #                         equivilent to -size in homer (maybe)
 # Args -outdir         : MACS2 will save all output files into speficied folder for this option 
+
 #peaks =  regions of the genome where multiple reads align that are indicative of protein binding
 
 macs2 callpeak -t ${tab[$SLURM_ARRAY_TASK_ID]} -f BAM -g mm -n "$SHORTNAME" --outdir "$SCRATCHDIR"
