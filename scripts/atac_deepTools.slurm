@@ -5,7 +5,7 @@
 #SBATCH --time=0:45:00
 #SBATCH --nodes=1
 #SBATCH --ntasks=1
-#SBATCH --mem=26G
+#SBATCH --mem=10G
 #SBATCH --cpus-per-task=6   # Nb of threads we want to run on ${SLURM_CPUS_ON_NODE}
 #SBATCH -o Project_HPC/log/slurmjob-%A-%a
 #SBATCH --job-name=deepTools_atac
@@ -66,7 +66,7 @@ echo "bamCoverage in order to see the coverage on the genome from each sample"
 # Args -o <file> : Path to where the output files should be writen
 # Args --outFileFormat <character> : Choose whether the output will be in Bigwig or in bedgraph format
 
-bamCoverage -b "${tab[$SLURM_ARRAY_TASK_ID]}" -o "$SHORTNAME".bed --outFileFormat bedgraph
+bamCoverage -b "${tab[$SLURM_ARRAY_TASK_ID]}" -o "$SHORTNAME".bedgraph --outFileFormat bedgraph
 
 
 
