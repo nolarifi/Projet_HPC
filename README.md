@@ -118,3 +118,5 @@ These scripts will be modified later in order to be adapted to our dataset.
                       output: "$HOME"/Project_HPC/results/bedtools                                                             
        	              this script is launched from home using this command line : sbatch Project_HPC/scripts/atac_bedtools.slurm
             
+
+the hole workflow could be launched from home by tapping this command line : bash Project_HPC/scripts/atacseq_wf_example.sh
